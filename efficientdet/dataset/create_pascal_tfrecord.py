@@ -15,8 +15,8 @@
 r"""Convert PASCAL dataset to TFRecord.
 
 Example usage:
-    python create_pascal_tfrecord.py  --data_dir=/tmp/VOCdevkit  \
-        --year=VOC2012  --output_path=/tmp/pascal
+    python create_pascal_tfrecord.py  --data_dir=/home/user/VOCdevkit  \
+        --year=VOC2012  --output_path=/home/user/pascal.record
 """
 from __future__ import absolute_import
 from __future__ import division
@@ -250,9 +250,7 @@ def main(_):
   for writer in writers:
     writer.close()
 
-  json_file_path = os.path.join(os.path.dirname(x),
-                               'json_' + os.path.basename(x) + '.json')
-  with tf.io.gfile.GFile(json_file_path, 'w') as f:
+  with tf.io.gfile.GFile(FLAGS.output_path + '.json', 'w') as f:
     json.dump(ann_json_dict, f)
 
 
